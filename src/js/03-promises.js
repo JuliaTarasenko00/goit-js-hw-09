@@ -29,7 +29,7 @@ const inputStep = Number(refs.step.value);
 const inputAmount = Number(refs.amount.value);
  
    for (let i = 1; i <= inputAmount; i += 1) {
-const step = inputDelay + inputStep * i;
+const step = inputDelay + inputStep * (i - 1);
 createPromise(i, step)
   .then(({ position, delay }) => {
     Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);

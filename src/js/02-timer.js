@@ -55,18 +55,20 @@ function addLeadingZero(value) {
 const handelTimer = () => {
   const newDay = new Date();
   const time = dataValue - newDay.getTime();
+  if (time <= 0) {
+    clearInterval(timer);
+    return;
+  }
   const timeObj = convertMs(time);
   addLeadingZero(timeObj);
 };
 
-
-
 let timer = setInterval(handelTimer, 1000);
-clearInterval(timer);
 
 refs.btnEl.addEventListener('click', () =>{
 
 refs.btnEl.setAttribute('disabled', 'disabled');
+clearInterval(timer);
 timer = setInterval(handelTimer, 1000);
 })
 
