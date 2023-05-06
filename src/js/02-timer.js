@@ -1,22 +1,22 @@
 // Описаний в документації
-import flatpickr from "flatpickr";
+import flatpickr from 'flatpickr';
 import Notiflix from 'notiflix';
 // Додатковий імпорт стилів
-import "flatpickr/dist/flatpickr.min.css";
+import 'flatpickr/dist/flatpickr.min.css';
 
 const refs = {
-    inputEl: document.getElementById('datetime-picker'),
-    divTimer: document.querySelector('.timer'),
-    btnEl: document.querySelector('button[data-start]'),
-    daysEl: document.querySelector('[data-days]'),
-    hoursEl: document.querySelector('[data-hours]'),
-    minutesEl: document.querySelector('[data-minutes]'),
-    secondsEl: document.querySelector('[data-seconds]'),
+  inputEl: document.getElementById('datetime-picker'),
+  divTimer: document.querySelector('.timer'),
+  btnEl: document.querySelector('button[data-start]'),
+  daysEl: document.querySelector('[data-days]'),
+  hoursEl: document.querySelector('[data-hours]'),
+  minutesEl: document.querySelector('[data-minutes]'),
+  secondsEl: document.querySelector('[data-seconds]'),
 };
 
 refs.divTimer.style.display = 'flex';
 const divChildrens = refs.divTimer.children;
-for(const divChildren of divChildrens) {
+for (const divChildren of divChildrens) {
   divChildren.style.display = 'flex';
   divChildren.style.flexDirection = 'column';
   divChildren.style.alignItems = 'center';
@@ -24,7 +24,7 @@ for(const divChildren of divChildrens) {
 }
 
 let dataValue = 0;
-const date = Date.now()
+const date = Date.now();
 
 refs.btnEl.setAttribute('disabled', 'disabled');
 
@@ -34,8 +34,8 @@ const options = {
   defaultDate: date,
   minuteIncrement: 1,
   onClose(selectedDates) {
-     dataValue = selectedDates[0].getTime();
-    if(dataValue < date){
+    dataValue = selectedDates[0].getTime();
+    if (dataValue < date) {
       Notiflix.Notify.failure('Please choose a date in the future');
       refs.btnEl.setAttribute('disabled', 'disabled');
     } else {
@@ -64,30 +64,27 @@ const handelTimer = () => {
 };
 
 let timer = setInterval(handelTimer, 1000);
-
-refs.btnEl.addEventListener('click', () =>{
-
-refs.btnEl.setAttribute('disabled', 'disabled');
-clearInterval(timer);
-timer = setInterval(handelTimer, 1000);
-})
+refs.btnEl.addEventListener('click', () => {
+  refs.btnEl.setAttribute('disabled', 'disabled');
+  clearInterval(timer);
+  timer = setInterval(handelTimer, 1000);
+});
 
 function convertMs(ms) {
-    // Number of milliseconds per unit of time
-    const second = 1000;
-    const minute = second * 60;
-    const hour = minute * 60;
-    const day = hour * 24;
-  
-    // Remaining days
-    const days = Math.floor(ms / day);
-    // Remaining hours
-    const hours = Math.floor((ms % day) / hour);
-    // Remaining minutes
-    const minutes = Math.floor(((ms % day) % hour) / minute);
-    // Remaining seconds
-    const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-  
-    return { days, hours, minutes, seconds };
-  }
-  
+  // Number of milliseconds per unit of time
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+
+  // Remaining days
+  const days = Math.floor(ms / day);
+  // Remaining hours
+  const hours = Math.floor((ms % day) / hour);
+  // Remaining minutes
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  // Remaining seconds
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+
+  return { days, hours, minutes, seconds };
+}
